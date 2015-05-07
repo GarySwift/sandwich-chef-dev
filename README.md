@@ -1,7 +1,7 @@
 #Sandwich Chef Development Repository
 
 ##MEAN Fullstack Stack Application
-An ongoing experimental project using the a MEAN Stack.
+An ongoing experimental project using the MEAN Stack.
 
 ###Created using:
 
