@@ -1,0 +1,212 @@
+<div class="container">
+
+<form name="itemForm" novalidate > 
+
+<section class="container image-edit-container" ng-show="uploader.getNotUploadedItems().length">
+	<div class="col-md-12 column" ng-repeat="item in uploader.queue"><!--  -->
+		<div class="row clearfix">
+			<div class="col-sm-12 col-md-7 column left-side">
+				<strong>Filename: {{ item.file.name }}</strong>
+			</div>
+			<div class="col-sm-12 col-md-5 column right-side">
+				<div class="row clearfix">
+					<div class="col-sm-4 col-md-4 column">
+						Size
+						<div ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</div>
+					</div>
+					<div class="col-sm-4 col-md-4 column">
+						Progress
+					    <div ng-show="uploader.isHTML5">
+	                        <div class="progress" style="margin-bottom: 0;">
+	                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+	                        </div>
+                    	</div>
+					</div>
+					<div class="col-sm-4 col-md-4 column">
+						Status
+						<div class="text-center">
+                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row clearfix img-process-row text-center">
+			<div class="col-sm-12 col-md-7 column">
+			        <div class="cropArea">
+                      <img-crop image="item.image" result-image="item.croppedImage" area-min-size="400" area-type="square" result-image-size="400"></img-crop>
+                    </div>
+			</div>
+			<div class="col-sm-12 col-md-5 column" id="crop-result">
+	     		<h2><small>Cropped Image:</small></h2>
+                <img ng-src="{{item.croppedImage}}" />
+			</div>
+		</div>
+<!-- 		</div> -->
+	</div>
+
+	<div class="col-md-12 column" >
+		<label>Queue progress:</label>
+		<div class="progress" style="">
+		    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+		</div>	
+	</div>
+</section><!-- image-edit-container -->
+
+<section class="container input-container">
+	<div class="form-width">
+		<!-- NAME -->
+		<div class="form-group" ng-class="{ 'has-error' : itemForm.name.$invalid && !itemForm.name.$pristine, 'has-error' : settings.dupName }">
+			<label>Name:</label>
+			<input type="text" name="name" class="form-control" ng-model="item.name" ng-blur="checkForDupName()" ng-focus="settings.dupName=false"required>
+			<!-- <i ng-show="itemForm.user.name.$error.required">*required</i><br> -->
+			<p ng-show="itemForm.name.$invalid && !itemForm.name.$pristine" class="help-block">An item name is required.</p>
+			<p ng-show="settings.dupName" class="help-block">Sorry, an item with this name already exists! Pleasse be unique:-)</p>
+		</div><!-- NAME -->
+
+		<!-- PRICE -->
+		<div class="form-group" ng-class="{ 'has-error' : itemForm.price.$invalid && !itemForm.price.$pristine }"><!-- ng-show="settings.price"  -->
+			<label>Price:</label>
+			<input type="number" name="price" class="form-control" ng-model="item.price" required>
+			<p ng-show="itemForm.price.$invalid && !itemForm.price.$pristine" class="help-block">Please enter a valid retail price.</p>
+		</div>
+		<!-- PRICE -->
+
+		<!-- DESCRIPTION -->
+		<div class="form-group">
+		  <label for="notes">Description:</label>
+		  <textarea type="text" class="form-control" rows="2" name="notes" id="notes" ng-model="item.notes" ng-minlength="3" ng-maxlength="500"></textarea>
+		  <p ng-show="itemForm.notes.$invalid && !itemForm.notes.$pristine" class="help-block">Please enter a valid description.</p>
+		</div>		
+		<!-- DESCRIPTION -->
+
+		<!-- IMAGE -->
+		<div class="form-group">
+			<label>Image:</label>
+			<input type="file" nv-file-select="" name="image" id="form-image" class="form-control" uploader="uploader"  ng-disabled="uploader.queue.length"/>
+			<p ng-show="itemForm.image.$invalid && !itemForm.image.$pristine" class="help-block">Please select a suitable image.</p>
+			<!-- <input type="file" class="form-control" ngf-select ng-model="fileInput" id="fileInput" name="fileInput" accept="image/*" 
+			ngf-change=handleFileSelect($files) required> -->
+			<!--  ngf-change="generateThumb(fileInput[0], $files)" -->
+			<!-- <i ng-show="itemForm.fileInput.$error.required">*required</i> -->
+			<!-- <p ng-show="itemForm.fileInput.$invalid && !itemForm.fileInput.$pristine" class="help-block">An image is required.</p> -->
+		</div><!-- IMAGE -->
+
+		<!-- HIDDEN -->
+<!-- <input type="hidden" ng-model="item.category" name="category" value="cold-cut" ng-value="this.category= category"> -->
+		<!-- <input type="hidden" ng-model="item.instock_" name="instock_" value="true" ng-value="item.instock = true"> -->
+
+		<!-- <input type="checkbox" name="my-checkbox" checked> -->
+		<!-- IMAGE -->
+		<!-- <div class="form-group"> -->
+			<!-- <label>In Stock:<md-switch class="inset" ng-model="data.formInstock" ng-change="onChange(data.formInstock)">Instock: {{ message }}</md-switch> aria-label="In Stock"  </label> -->
+		  
+		<!-- IN-STOCK ng-model="stockSwitch.instock"  -->
+		<div class="form-group">
+			<label>Instock:</label><br>
+			<div class="text-center">
+			   <input  bs-switch type="radio" 
+			   			ng-model="stockSwitch.inStock" 
+
+			   			value="true"
+						switch-on-text="{{ stockSwitch.onText }}"
+					    switch-off-text="{{ stockSwitch.offText }}"
+					    switch-on-color="{{ stockSwitch.onColor }}"
+					    switch-off-color="{{ stockSwitch.offColor }}"
+					    switch-animate="{{ stockSwitch.animate }}"
+					    switch-size="{{ size }}"
+					    switch-label="{{ label }}"
+					    switch-icon="{{ icon }}"
+					    switch-radio-off="{{ radioOff }}"
+					    switch-label-width="{{ labelWidth }}"
+					    switch-handle-width="{{ handleWidth }}"
+					    switch-wrapper="{{ wrapper }}"
+					    ng-value="stockSwitch.inStock"
+					    ng-change="function()"
+					    ng-true-value="'yep'"
+					    ng-false-value="'nope'"
+					    switch-inverse="{{ !inverse }}"
+					    switch-readonly="{{ readonly }}">
+			</div>
+		</div>
+		<!-- IN-STOCK -->
+
+		  <!-- </div> -->
+	</div><!-- add-item-container -->
+</section><!-- input-area -->
+<section class="container button-container">
+	<div class="form-width" >
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-success btn-s" ng-show="!updating" ng-click="uploader.uploadAll()" ng-disabled="!itemForm.$valid || !uploader.getNotUploadedItems().length || uploadInProgress">
+				<span ng-show="uploadInProgress" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+	            <span ng-hide="uploadInProgress" class="glyphicon glyphicon-upload"></span> Submit New Item
+	        </button>
+	    <!--     <button type="button" class="btn btn-success btn-s" ng-click="uploadSambo()" ng-disabled="">
+	            <span class="glyphicon glyphicon-upload"></span> Submit Sambo
+	        </button> -->
+	  		<button type="button" class="btn btn-info btn-s" ng-show="updating" ng-click="update(item)" ng-disabled="!itemForm.$valid && !uploader.getNotUploadedItems().length">
+	            <span class="glyphicon glyphicon-upload"></span> Edit This Item
+	        </button>
+	        <button type="button" class="btn btn-warning btn-s" ng-click="deselect()" ng-show="updatingActive">
+	            <span class="glyphicon glyphicon-ban-circle"></span> Cancel Edit
+	        </button>
+	        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+	            <span class="glyphicon glyphicon-ban-circle"></span> Cancel Upload
+	        </button>
+	        <button type="button" class="btn btn-danger btn-s" ng-click="resetImage()" ng-disabled="!uploader.queue.length"><!-- uploader.clearQueue() -->
+	            <span class="glyphicon glyphicon-trash"></span> Remove Image
+	        </button>
+
+
+		</div>
+
+		<!-- SUBMIT BUTTON - (default) show for adding new entry -->
+		<div class="form-group" ng-show="!updating ">
+			<!-- <button class="btn btn-primary btn-block" ng-click="addNew(item)" ng-disabled="!itemForm.$valid">Submit</button> -->
+			<!-- <button class="btn btn-primary btn-block" ng-click="addNew(item)" >Submit</button> -->
+			<!--   -->
+			<!-- <span ng-show="fileInput[0].result">Upload Successful</span> -->
+		</div> <!-- SUBMIT BUTTON -->
+
+		<!-- EDIT BUTTON - show for editing -->
+		<div class="form-group" ng-show="updating ">
+			<!-- <button class="btn btn-info btn-block" ng-click="update(item)">EDIT ITEM</button> -->
+			<!-- ng-disabled="!itemForm.$valid"  -->
+			<!-- <span ng-show="fileInput[0].result">Upload Successful</span> -->
+		</div> <!-- EDIT BUTTON -->
+	</div>
+</section><!-- button-container -->
+</form>
+
+</div>
+<!-- <div class="row clearfix">
+	<div class="col-sm-12 col-md-8 column">
+		<strong>Filename: {{ item.file.name }}</strong>
+	</div>
+	<div class="col-sm-12 col-md-4 column">
+		<div class="row clearfix">
+			<div class="col-md-4 column">
+				Size
+				<div ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</div>
+			</div>
+			<div class="col-md-4 column">
+				Progress
+			    <div ng-show="uploader.isHTML5">
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                    </div>
+            	</div>
+			</div>
+			<div class="col-md-4 column">
+				Status
+				<div class="text-center">
+                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
