@@ -18,6 +18,10 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/sandwich/sandwich.socket').register(socket);
+  require('../api/ingred/ingred.socket').register(socket);
+  require('../api/product/product.socket').register(socket);
+  require('../api/item/item.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
 }
 
