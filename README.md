@@ -39,6 +39,7 @@ All of these can be updated with bower update as new versions are released.
 ###Additional Directives/Libraries:
 * [ngImgCrop](https://github.com/alexk111/ngImgCrop)
 * [nervgh/angular-file-upload](https://github.com/nervgh/angular-file-upload)
+* motdotla/dotenv https://github.com/motdotla/dotenv
 
 ###Demo
 <https://sandwich-chef.herokuapp.com/>

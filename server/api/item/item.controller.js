@@ -11,9 +11,9 @@ var _ = require('lodash'),
     cloudinary = require('cloudinary');
 
 cloudinary.config({ 
-  cloud_name: 'gary-swift', 
-  api_key: '324864517233367', 
-  api_secret: 'vliUjGyMdR0zQMq4viQC7rcGebg' 
+  cloud_name: process.env.cloudinary_cloud_name,
+  api_key: process.env.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_secret,
 });
 
 var getModel = function (model, category) {
@@ -140,7 +140,6 @@ exports.postImage = function(req, res, next) {
 // Deletes a item from the DB.
 exports.destroy = function(req, res) {
   var item = require('../'+req.params.type+'/'+req.params.type+'.model');
-  console.log(util.inspect(item, {showHidden: false, depth: null}));    
   item.findById(req.params.id, function (err, item) {
     if(err) { return handleError(res, err); }
     if(!item) { return res.send(404); }
