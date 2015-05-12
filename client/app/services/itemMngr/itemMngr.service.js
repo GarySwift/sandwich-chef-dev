@@ -8,9 +8,11 @@
 
 angular.module('sandwichChefApp')
   .service('itemMngr', function ($http, socket) {
+    this.serverLocation;
 
   this.getItems = function ($scope, item) {
-    $http.get('/api/'+item+'s').success(function(res) { //*************** gets all ingreds
+    // if(item==='sandwich') item='sandwiche';
+    $http.get(this.serverLocation).success(function(res) { //*************** gets all item based on type
       $scope.items = res;
 // console.log(res);  
 // console.log(JSON.stringify($scope.items));    
@@ -18,21 +20,21 @@ angular.module('sandwichChefApp')
     });
   }
 
-  this.checkForDupName = function($scope, serverLocation, thing) {
-    console.log('1 checkForDupName');
+  this.checkForDupName = function($scope) {
+    // console.log('1 checkForDupName');
     if ($scope.itemForm.name !== undefined ) {
-      console.log('2 checkForDupName');
+      // console.log('2 checkForDupName');
       if ($scope.itemForm.name.$valid && $scope.item.name !== $scope.itemForm.name) {
-        console.log('3 checkForDupName');
-        console.log('serverLocation',serverLocation);
-        console.log('$scope.itemForm.name.$viewValue',$scope.itemForm.name.$viewValue);
-        console.log('thing',thing);
+        // console.log('3 checkForDupName');
+        // console.log('serverLocation',serverLocation);
+        // console.log('$scope.itemForm.name.$viewValue',$scope.itemForm.name.$viewValue);
+        // console.log('item',item);
         //send a get request to the server using the user input name
-        $http.get('api/items/name/'+ $scope.itemForm.name.$viewValue+'/'+thing+'/'+$scope.category).success(function(res) {
+        $http.get('api/items/name/'+ $scope.itemForm.name.$viewValue+'/'+$scope.type+'/'+$scope.category).success(function(res) {
           console.log('res', res);
-          console.log('4 checkForDupName');
+          // console.log('4 checkForDupName');
           if( res.name === $scope.itemForm.name.$viewValue) {
-            console.log('5 checkForDupName');
+            // console.log('5 checkForDupName');
               //inform user that the name already exists
               $scope.dupName=true;
               $scope.settings.dupName=true;
@@ -45,11 +47,11 @@ angular.module('sandwichChefApp')
     }
   };
   
-  this.prepareUpdate = function($scope, itemID, serverLocation) { 
+  this.prepareUpdate = function($scope, itemID) { 
     console.log('itemMngr ... prepareUpdate', itemID);
     
     // Get a single item from the DB
-    $http.get(serverLocation +'/'+ itemID)
+    $http.get(this.serverLocation +'/'+ itemID)
     .success(function(item) {
       //Convert string to number to avoid vvalidation error on input type number
       item.price = parseFloat(item.price);  
@@ -68,9 +70,9 @@ angular.module('sandwichChefApp')
     });  
   };
 
-  this.updateWithoutImage = function($scope, serverLocation, syncUpdatesID, item) {
-    $http.put(serverLocation +'/'+ item._id, item).success(function(response) {
-      socket.syncUpdates(syncUpdatesID, $scope.items );
+  this.updateWithoutImage = function($scope, item) {
+    $http.put(this.serverLocation +'/'+ item._id, item).success(function(response) {
+      socket.syncUpdates($scope.type, $scope.items );
       $scope.deselect();
     });
   }
@@ -84,15 +86,17 @@ angular.module('sandwichChefApp')
     document.getElementById("form-image").value = "";    
   }
 
-  this.delete = function (item, serverLocation) {
-        console.log('deleteItemNew', item);
-     $http.delete(serverLocation+'/'+ item._id);
+  //Deleting for everything is handled in item.controller.js
+  this.delete = function (item, type) {
+    console.log('deleteItemNew', item);
+    $http.delete('api/items/'+ item._id+'/'+type);
+     // $http.delete(this.serverLocation+'/'+ item._id);
   }
   this.deselect = function ($scope) {
     $scope.updating = false;
-    $scope.item = "";               // non-generic
-    $scope.itemForm.$setPristine(); // non-generic
-    $scope.resetImage();            // Uploader callback function
+    $scope.item = "";
+    $scope.itemForm.$setPristine(); 
+    $scope.resetImage();          
     $scope.updatingActive=false;
     $scope.uploadInProgress=false;
     if($scope.formDebugMode)

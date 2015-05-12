@@ -1,0 +1,33 @@
+<section class="container items-container" ng-show="!uploader.getNotUploadedItems().length">
+    <div class="col-lg-12">
+      <ul class="item-list nav nav-tabs nav-stacked col-sm-12 col-md-6 col-lg-4" ng-repeat="item in items | filter:{ category : category, subCategory : subCategory, inStock: true } | orderBy : 'name' ">
+      <!-- | filter:{ category : category, subCategory : subCategory, inStock: true } | orderBy : 'name' -->
+	    <li class="artist cf" ng-animate="animate" >
+	      <!-- <a href="artists/{{artists.indexOf(item)}}"> -->
+	        <img ng-src="{{ getImageUrl(item.imageUrl, 150) }}" width="100" class=" artist-image" alt="Photo of {{item.name}}"><!-- img-circle -->
+
+<!-- <cl-image public-id="{{item.imageId}}" class="thumbnail inline" angle="20" format="jpg">
+  <cl-transformation height="150" width="150" crop="fill" gravity="north" effect="sepia" radius="20"/>
+</cl-image> -->
+<!-- <img cl-image class="myClass" id="profilePhoto" height="95" data-crop="fit" public-id="{{item.imageId}}"/> -->
+	        <div class="info">
+				<h2>{{item.name}}</h2>
+				<h3>{{item.price}}</h3>
+				 <!-- <p>hejj{{item}}</p> -->
+								<!--getImageUrl(item)   <h5>{{item.imageUrl}}</h5> -->
+	        </div>
+			<div class="user-btn-group" ng-show="isAdmin()"><!-- ng-show="!updating  isAdmin()"  -->
+				<button class="close" ng-click="deleteItem(item)"><span class="glyphicon glyphicon-trash action-glyphicon" aria-hidden="true"></span>Delete</button>
+				<button class="close" ng-click="prepareUpdate(item._id)"><span class="glyphicon glyphicon-edit action-glyphicon" aria-hidden="true"></span>Edit</button>
+				<!-- <ng-md-icon icon="add_shopping_cart" style="fill: wheat" size="40" options="rotation"></ng-md-icon>  -->
+			</div>
+			<div class="user-btn-group" ng-show="!isAdmin()"><!-- ng-show="!updating  isAdmin()"  -->
+		<!-- 		<button class="close" ng-click="deleteItemNew(item)"><span class="glyphicon glyphicon-trash action-glyphicon" aria-hidden="true"></span>Delete</button> -->
+<a href="#" ng-click="addToBasket(item)"><ng-md-icon icon="add_shopping_cart" style="fill: wheat" size="40"></ng-md-icon></a>
+			</div>
+
+	      <!-- </a> -->
+	    </li>
+	  </ul> 
+	</div> 
+</section><!-- items-container -->

@@ -68,9 +68,15 @@ angular.module('sandwichChefApp')
         controller: 'ItemsCtrl'
       })
       .when('/out-of-stock', {
-        templateUrl: 'app/ingreds/items.html',
+        templateUrl: 'app/items/items.html',
         controller: 'ItemsCtrl',
-        authenticate: true 
+        authenticate: true,
+        resolve: {
+          initialData: function(){
+              return {'type':'ingred',
+                      'category':'out-of-stock'};
+          }
+        }         
       })      
       .when('/ingred/cold-cuts', {
         templateUrl: 'app/items/items.html',
@@ -145,7 +151,7 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':''};
+                      'category':'ingredients'};
           }
         }         
       })           
@@ -155,8 +161,9 @@ angular.module('sandwichChefApp')
         // authenticate: true,
         resolve: {
           initialData: function(){
-              return {'type':'sandwiches',
-                      'category':'sandwiches'};
+              return {'type':'sandwich',
+                      'category':'sandwich',
+                      'serverLocation':'/api/sandwiches'};
           }
         }         
       })

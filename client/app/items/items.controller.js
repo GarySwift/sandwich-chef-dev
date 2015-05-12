@@ -56,7 +56,7 @@ angular.module('sandwichChefApp')
 $scope.uploadInProgress = false;
   //Server Parameters
   var type = $scope.type =  $scope.initialData.type;// LynchPin
-  var serverLocation = '/api/'+type+'s';
+  // var serverLocation =  $scope.initialData.serverLocation ? $scope.initialData.serverLocation : '/api/'+type+'s';
   var syncUpdatesID = type;         
   $scope.uploadUrl = 'api/items/upload/image'; // All uploads with images go to the same function
 
@@ -78,11 +78,22 @@ $scope.uploadInProgress = false;
   // Set default settings
   $scope.defaultFormSettings.setDefaults($scope);
 
+  //init itemMnger
+  itemMngr.serverLocation = $scope.initialData.serverLocation ? $scope.initialData.serverLocation : '/api/'+type+'s';
+  itemMngr.syncUpdatesID = $scope.initialData.type;
+  // itemMngr.type = $scope.initialData.type;
   //Set items in $scope
-  itemMngr.getItems($scope, type);
+  $scope.itemMngr.getItems($scope, type);
 
 $scope.category = $scope.initialData.category;
 $scope.subCategory = $scope.initialData.subCategory;
+$scope.title = $scope.initialData.subCategory ? $scope.initialData.subCategory : $scope.category;
+
+
+
+
+
+
 
   // Declare File Uploader
   var uploader = $scope.uploader = new FileUploader();
@@ -91,17 +102,17 @@ $scope.subCategory = $scope.initialData.subCategory;
 
   // Check for duplicate iwth name.on-blur
   $scope.checkForDupName = function() {   // non-generic
-    itemMngr.checkForDupName($scope, serverLocation, $scope.type);
+    itemMngr.checkForDupName($scope);
   };
   // Get a new object back from the server using the scope item id.
   $scope.prepareUpdate = function(itemID) {
-    itemMngr.prepareUpdate($scope, itemID, serverLocation);       
+    itemMngr.prepareUpdate($scope, itemID);       
   }
   $scope.getImageUrl = function(item, size) {
     return imageMngr.getImageUrl(item, size);
   }      
   $scope.deleteItem = function(item) {
-    itemMngr.delete(item, serverLocation)
+    itemMngr.delete(item, $scope.type);
   };
   $scope.resetImage = function () {
     itemMngr.resetImage(uploader);
@@ -109,20 +120,21 @@ $scope.subCategory = $scope.initialData.subCategory;
   $scope.deselect = function() {
     itemMngr.deselect($scope);
   }
-    $scope.setCategory = function(category) {
-    $scope.category = category;//*******************************Called by indvidual pages
+  //setCategory is used in sandwich chef loop to show ingredients
+  $scope.setCategory = function(category) {
+    $scope.category = category;
   }
   // Update an existing item in the DB.
   $scope.update = function(item) {
     //Simple update without effecting image
     if(!uploader.getNotUploadedItems().length)
-      itemMngr.updateWithoutImage($scope, serverLocation, syncUpdatesID, item);
+      itemMngr.updateWithoutImage($scope, item);
     //Else image will also be changed or renamed
     else 
       itemMngr.updateWithImage($scope, uploader);
   };        
 }]);
-
+//// ******************************* Sandwicch
 function sandwich() {
     this.name = "";
     this.bread = [];

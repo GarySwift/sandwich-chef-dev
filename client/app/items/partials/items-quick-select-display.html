@@ -1,0 +1,12 @@
+<div class="chef-list" ng-repeat="item in items | filter:{ category : category, inStock: true } | orderBy : 'name' ">
+	<div class="chef-option col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center" ng-animate="animate" ><!-- col-xs-12 col-sm-6  -->
+		<div class="fig-wrapper">
+		<figure class="cap-bot" ng-click="addToChef(item)">
+			<img ng-src="{{ getImageUrl(item) }}" class="" alt="Photo of {{item.name}}">
+			<figcaption>
+				Add {{item.name}}<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</figcaption>
+		</figure> 
+		</div>				
+	</div>
+</div>

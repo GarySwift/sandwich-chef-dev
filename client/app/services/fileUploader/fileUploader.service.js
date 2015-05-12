@@ -27,7 +27,7 @@ angular.module('sandwichChefApp')
         item.formData = [{
                           '_id'         : $scope.item._id, 
                           'name'        : $scope.item.name, 
-                          'notes'       : $scope.item.notes, 
+                          'notes'       : $scope.item.notes ? $scope.item.notes : '',
                           'category'    : $scope.initialData.category ? $scope.initialData.category : $scope.initialData.category,
                           'subCategory' : $scope.subCategory ? $scope.subCategory : $scope.item.subCategory,
                           'price'       : $scope.item.price ? $scope.item.price : 0,
@@ -42,7 +42,7 @@ angular.module('sandwichChefApp')
         item.url = 'api/items/upload/image';
         item.formData = [{
                           'name'        : $scope.item.name,
-                          'notes'       : $scope.item.notes,
+                          'notes'       : $scope.item.notes ? $scope.item.notes : '',
                           'category'    : $scope.initialData.category ? $scope.initialData.category : $scope.initialData.category,
                           'subCategory' : $scope.subCategory ? $scope.subCategory : $scope.item.subCategory,
                           'price'       : $scope.item.price ? $scope.item.price : 0,
