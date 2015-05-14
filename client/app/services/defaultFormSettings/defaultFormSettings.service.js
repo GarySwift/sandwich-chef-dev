@@ -11,7 +11,7 @@ angular.module('sandwichChefApp')
       $scope.isCollapsed = true;
       $scope.updatingActive=false;
       $scope.formDebugMode = true;
-      $scope.showPriceInput = true;
+      // $scope.showPriceInput = true;
       $scope.uploadingEdit = false;
       $scope.imageIsSelected = false;
       $scope.uploaderDebugMode = false;      

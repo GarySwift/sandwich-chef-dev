@@ -85,7 +85,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'cold-cut'};
+                      'category':'cold-cut',
+                      'price':false,
+                      'notes':false};
           }
         }
       })
@@ -96,7 +98,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'salad'};
+                      'category':'salad',
+                      'price':false,
+                      'notes':false};
           }
         }        
       })         
@@ -107,7 +111,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'bread'};
+                      'category':'bread',
+                      'price':false,
+                      'notes':false};
           }
         }        
       }) 
@@ -118,7 +124,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'hot-meat'};
+                      'category':'hot-meat',
+                      'price':false,
+                      'notes':false};
           }
         }         
       }) 
@@ -129,7 +137,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'seafood'};
+                      'category':'seafood',
+                      'price':false,
+                      'notes':false};
           }
         }         
       })    
@@ -140,7 +150,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'extra'};
+                      'category':'extra',
+                      'price':false,
+                      'notes':false};
           }
         }         
       })   
@@ -151,7 +163,9 @@ angular.module('sandwichChefApp')
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'ingredients'};
+                      'category':'ingredients',
+                      'price':false,
+                      'notes':false};
           }
         }         
       })           
@@ -167,6 +181,19 @@ angular.module('sandwichChefApp')
           }
         }         
       })
+      .when('/chef', {
+        templateUrl: 'app/sandwiches/sandwiches.html',
+        controller: 'ItemsCtrl',
+        // authenticate: true,
+        resolve: {
+          initialData: function(){
+              return {'type':'sandwich',
+                      'category':'sandwich',
+                      'serverLocation':'/api/sandwiches',
+                      'price':3.95};
+          }
+        }         
+      })      
       ;
   });
 

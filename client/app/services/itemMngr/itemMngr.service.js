@@ -59,6 +59,7 @@ angular.module('sandwichChefApp')
       if(!item.inStock) { $scope.stockSwitch.inStock='false'; }
       // Assign that new object to $scope.<item>
       $scope.item = item;
+      console.log('$scope.item', $scope.item);
       // This reveals the an input box where the user can edit an item
       $scope.updating=true
       //  $scope.itemForm.name.$pristine = false;

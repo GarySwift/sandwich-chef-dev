@@ -1,0 +1,71 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="section" ng-controller="SandwichesCtrl">
+    <div class="container">
+
+        <div id="chef-options-area" class="col-xs-12 col-sm-12 col-md-12 col-lg-9 " collapse="chefCollapsed">         
+            <tabset justified="false" >
+                <tab ng-repeat="tab in sandwichList" heading="Step {{$index+1}}: {{tab.title}}" active="tab.active"  select="selected(tab.name)" disable="tab.disabled" >
+                    <div class="bread chef-section" >
+                        <h1 ng-if="tab.name!=='filling'"><small>Choose {{ tab.title}}</small></h1>
+                        {{ setCategory(tab.name) }}
+                        <div ng-if="tab.name!=='filling'" ng-include="'app/items/partials/items-quick-select-display.html'"></div>                         
+                        <div ng-if="tab.name==='filling'">
+                            <tabset justified="false" type="pills">
+                                <tab heading="{{pil.title}}" ng-repeat="pil in fillingList" active="pil.active" disable="pil.disabled">
+                                    <h1><small>Choose {{ pil.title}}</small></h1>
+                                    {{ setCategory(pil.name) }}
+                                    <div ng-include="'app/items/partials/items-quick-select-display.html'"></div>
+                                    <div class="clearfix"></div>
+                                    <div>
+                                        <span class="glyphicon glyphicon-chevron-left chef nav-arrow" aria-hidden="true" ng-click="previousFilling($index)"></span>
+                                        <span class="glyphicon glyphicon-chevron-right chef pull-right nav-arrow" aria-hidden="true" ng-click="nextFilling($index)"></span>
+                                    </div>											  
+                                </tab>
+                            </tabset>
+                        </div>
+                        <div class="clearfix"></div>   
+                        <div ng-if="tab.name!=='filling'">
+                            <span class="glyphicon glyphicon-chevron-left chef nav-arrow" aria-hidden="true" ng-click="previousSection($index)" ng-hide="$index===0"></span>
+                            <span class="glyphicon glyphicon-chevron-right chef pull-right nav-arrow" aria-hidden="true" ng-click="nextSection($index)" ng-show="started"></span>
+                        </div>						                           
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+
+        <div id="chef-selectedarea" class="col-md-3 col-lg-3 visible-lg-block" ng-hide="chefCollapsed">
+            <div ng-repeat="cat in sandwichList" ng-click="goToTab($index)">
+                <h2><small>{{cat.title}}</small></h2>
+                <ul class="chef-select nav nav-tabs nav-stacked col-sm-12 col-md-6 col-lg-4 " ng-repeat="item in sandwich.getCategory(cat.name)">
+                    <li ng-animate="animate" >
+                        <div class="item" ng-click="addToCart(item)">
+                            <img ng-src="{{ getImageUrl(item.imageUrl, 50) }}" class="img-circle" alt="Photo of {{item.name}}">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div><!-- ng-repeat="cat in sandwichList" -->
+        </div><!-- chef-selectedarea -->
+
+        <div class="clearfix"></div>
+
+        <div class="form-width well well-lg" collapse="!isCollapsed" ng-click="chefCollapsed=!chefCollapsed">
+            <span class="glyphicon glyphicon-resize-full pull-right" ng-show="chefCollapsed" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-resize-small pull-right" ng-show="!chefCollapsed" aria-hidden="true"></span>
+            <div class="chef-selectedarea_" class="col-sm-12 col-md-12 hidden-lg hidden-md ">
+                <ul class="chef-select mobile" ng-repeat="item in sandwich.getIngred()">
+                  <li ng-animate="animate" >
+                      <div class="item" ng-click="addToCart(item)">
+                          <img ng-src="{{ getImageUrl(item.imageUrl, 50) }}" class="img-circle" alt="Photo of {{item.name}}">
+                      </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- container -->
+</div><!-- section -->
+
+<item-form/>

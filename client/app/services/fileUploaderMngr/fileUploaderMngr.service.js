@@ -1,17 +1,13 @@
 'use strict';
 
-// angular.module('sandwichChefApp')
-//   .service('fileUploader', function () {
-//     // AngularJS will instantiate a singleton by calling "new" on this function
-//   });
-
-// 'use strict';
-
 angular.module('sandwichChefApp')
-  .service('fileUploader', function () {
+  .service('fileUploaderMngr', function () {
 
   this.uploadHandler = function (uploader, $scope){
-    var uploaderDebugMode = false;
+    var uploaderDebugMode = true;
+	// Declare File Uploader
+	
+
     /**
      * Upload Blob (cropped image) instead of file.
      * @see
@@ -19,6 +15,7 @@ angular.module('sandwichChefApp')
      *   https://github.com/nervgh/angular-file-upload/issues/208
      */
     uploader.onBeforeUploadItem = function(item) {
+      console.log('$scope.item.notes', $scope.item.notes);
       // console.log('$scope.sandwich.getModelForServer()',$scope.sandwich.getModelForServer());
       // If the user is submitting an edit that changes the image
       // POST to: item.controller -> exports.postImage()
@@ -48,7 +45,6 @@ angular.module('sandwichChefApp')
                           'price'       : $scope.item.price ? $scope.item.price : 0,
                           'inStock'     : $scope.stockSwitch.inStock ? true : false,
                           'type'        : $scope.initialData.type,
-                          'category'    : $scope.initialData.category,
                           'sandwich'    : $scope.sandwich.getModelForServer($scope.initialData.category)
                         }];        
       }
@@ -131,14 +127,26 @@ angular.module('sandwichChefApp')
       console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
-    if(uploaderDebugMode)
-      console.info('onCompleteItem', fileItem, response, status, headers);
+    	console.log('response.name', response.name);
+    	console.log('response.category', response.category);
+    	console.log('response.imageUrl', response.imageUrl);
+    	console.log('response.imageId', response.imageId);
+    	if(response.imageUrl===undefined){
+    		$scope.addError('Oh snap! We had some trouble saving the image. You can fix this issue by selecting edit on the itme and adding another image.');
+    	}
+	    if(uploaderDebugMode)
+	      console.info('onCompleteItem', fileItem, response, status, headers);
     };
     uploader.onCompleteAll = function() {
       if(uploaderDebugMode)
         console.info('onCompleteAll');
       $scope.deselect();
+      
     };
+    uploader.onComplete = function(response, status, headers) {
+    	console.log('response', response);
+    	console.log(JSON.stringify(response));
+    };    
     if(uploaderDebugMode) { console.info('uploader', uploader); }
   }
-});
+  });

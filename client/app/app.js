@@ -10,7 +10,8 @@ angular.module('sandwichChefApp', [
   'angularFileUpload',
   'ngImgCrop',
   'ngMaterial',
-  'frapontillo.bootstrap-switch'  
+  'frapontillo.bootstrap-switch',
+  '720kb.tooltips'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

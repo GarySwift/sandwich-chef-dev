@@ -10,9 +10,9 @@ angular.module('sandwichChefApp')
     //   'title': 'products',
     //   'link': '/products'
     // }, {
-    //   'title': 'ingreds',
-    //   'link': '/ingreds'
-    // }, {
+      'title': 'Chef',
+      'link': '/chef'
+    }, {
       'title': 'Sandwiches',
       'link': '/sandwiches'
     }

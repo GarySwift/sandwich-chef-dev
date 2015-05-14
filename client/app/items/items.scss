@@ -13,6 +13,11 @@
     to { transform: scale(1) rotate(360deg);}
 }
 
+
+.inline-tooltip {
+    font-size: 20px;
+    @extend .pull-right;
+}
 //angular material switch
 .switchdemoBasicUsage .inset {
   // padding-left: 25px;

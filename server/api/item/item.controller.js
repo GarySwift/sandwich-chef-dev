@@ -161,7 +161,8 @@ console.log('destroy');
 exports.updateImage = function(req, res, next) {
   var form = new formidable.IncomingForm();
   var formBody, formFiles;
-
+  console.log('Sever updateImage');
+  
   form.parse(req, function(err, fields, files) {
     res.params =(util.inspect({fields: fields, files: files}));
     formBody=fields;

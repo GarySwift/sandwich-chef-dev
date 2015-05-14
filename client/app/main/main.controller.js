@@ -1,5 +1,13 @@
 'use strict';
 
+angular.module('sandwichChefApp').controller('PopoverDemoCtrl', function ($scope) {
+  $scope.dynamicPopover = {
+    content: 'Hello, World!',
+    templateUrl: 'myPopoverTemplate.html',
+    title: 'Title'
+  };
+});
+
 angular.module('sandwichChefApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
@@ -24,4 +32,12 @@ angular.module('sandwichChefApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
+
+      $scope.dynamicPopover = {
+    content: 'Hello, World!',
+    templateUrl: 'myPopoverTemplate.html',
+    title: 'Title'
+  };
   });
+
+
