@@ -2,7 +2,7 @@
 
 angular.module('sandwichChefApp')
   .service('sandwich', function ($http, haiku) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+    // AngularJS will instantiate a singleton by calling 'new' on this function
 
     var name = haiku.getHaiku();
     var bread = [];
@@ -43,7 +43,7 @@ var readyToSave = false;
 		                if (salad[i]._id === item._id) {
 		                    //Unselect item
 		                    salad.splice(i, 1);
-		                    return "You have already selected me!"
+		                    return 'You have already selected me!'
 		                }
 		            }
 		            salad.push(item);
@@ -53,7 +53,7 @@ var readyToSave = false;
 		                if (coldCut[i]._id === item._id) {
 		                    //Unselect item
 		                    coldCut.splice(i, 1);
-		                    return "You have already selected me!"
+		                    return 'You have already selected me!'
 		                }
 		            }
 		            hotMeat.length = 0;
@@ -80,7 +80,7 @@ var readyToSave = false;
 		                if (extra[i]._id === item._id) {
 		                    //Unselect item
 		                    extra.splice(i, 1);
-		                    return "You have already selected me!"
+		                    return 'You have already selected me!'
 		                }
 		            }
 		            extra.push(item);
@@ -104,25 +104,25 @@ var readyToSave = false;
 		},
 		getCategory: function(category) {
 		    switch (category) {
-		        case "bread":
+		        case 'bread':
 		            return bread;
 		            break;
-		        case "cold-cut":
+		        case 'cold-cut':
 		            return coldCut;
 		            break;
-		        case "hot-meat":
+		        case 'hot-meat':
 		            return hotMeat;
 		            break;
-		        case "seafood":
+		        case 'seafood':
 		            return seaFood;
 		            break;
-		        case "salad":
+		        case 'salad':
 		            return salad;
 		            break;
-		        case "extra":
+		        case 'extra':
 		            return extra;
 		            break;
-		        case "filling":
+		        case 'filling':
 		            return filling;
 		            break;
 		    }
@@ -162,7 +162,7 @@ var readyToSave = false;
 				name: name,
 				price: 4,
 				notes: '',
-				category: "sandwich",
+				category: 'sandwich',
 				autoName: true
 
 			}
@@ -256,7 +256,7 @@ var readyToSave = false;
 //                 if (this.salad[i]._id === item._id) {
 //                     //Unselect item
 //                     this.salad.splice(i, 1);
-//                     return "You have already selected me!"
+//                     return 'You have already selected me!'
 //                 }
 //             }
 //             this.salad.push(item);
@@ -266,7 +266,7 @@ var readyToSave = false;
 //                 if (this.coldCut[i]._id === item._id) {
 //                     //Unselect item
 //                     this.coldCut.splice(i, 1);
-//                     return "You have already selected me!"
+//                     return 'You have already selected me!'
 //                 }
 //             }
 //             this.hotMeat.length = 0;
@@ -293,7 +293,7 @@ var readyToSave = false;
 //                 if (this.extra[i]._id === item._id) {
 //                     //Unselect item
 //                     this.extra.splice(i, 1);
-//                     return "You have already selected me!"
+//                     return 'You have already selected me!'
 //                 }
 //             }
 //             this.extra.push(item);
@@ -317,25 +317,25 @@ this.ifFilling = function() {
 // }
 this.getCategory = function(category) {
     switch (category) {
-        case "bread":
+        case 'bread':
             return this.bread;
             break;
-        case "cold-cut":
+        case 'cold-cut':
             return this.coldCut;
             break;
-        case "hot-meat":
+        case 'hot-meat':
             return this.hotMeat;
             break;
-        case "seafood":
+        case 'seafood':
             return this.seaFood;
             break;
-        case "salad":
+        case 'salad':
             return this.salad;
             break;
-        case "extra":
+        case 'extra':
             return this.extra;
             break;
-        case "filling":
+        case 'filling':
             return this.filling;
             break;
     }

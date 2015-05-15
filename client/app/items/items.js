@@ -52,7 +52,6 @@ angular.module('sandwichChefApp')
    //        }
    //      } 
    //    }) 
-
      .when('/ingreds', {
         templateUrl: 'app/items/items.html',
         controller: 'ItemsCtrl',

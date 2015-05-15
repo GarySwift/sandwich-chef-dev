@@ -1,4 +1,4 @@
-<div class="container" collapse="formCollapsed"><!-- ng-show="isLoggedIn()" $scope.isCollapsed = true;-->
+<div class="container" collapse="formCollapsed" ng-show="isAdmin() || category ==='sandwich'"><!-- ng-show="isLoggedIn()" $scope.isCollapsed = true;-->
 
 <form name="itemForm" novalidate > 
 
@@ -138,7 +138,6 @@
 <section class="container button-container">
 	<div class="form-width" >
 		<div class="form-group text-center">
-		<button ng-click="testing()">Testing</button>
 			<button type="button" class="btn btn-success btn-s" ng-show="!updating" ng-click="uploader.uploadAll()" ng-disabled="!itemForm.$valid || !uploader.getNotUploadedItems().length || uploadInProgress">
 				<span ng-show="uploadInProgress" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
 	            <span ng-hide="uploadInProgress" class="glyphicon glyphicon-upload"></span> Submit New Item
@@ -173,5 +172,29 @@
 
 </form>
 
+<!-- <div class="container" collapse="formCollapsed" ng-hide="isLoggedIn()" ng-show="!isAdmin() && category ==='sandwich'">
+<div class="panel-heading">
+    <h3 class="panel-title">Please Log In</h3>
+  </div>
+  <div class="panel-body">
+    <a href="/login"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> You must log in order to save this sandwich.</a>
+  </div>
+</div> -->
+
 </div>
 
+
+
+
+
+<div class="form-width" ng-hide="isLoggedIn() || category !=='sandwich'">
+<div class="panel panel-info ">
+  <div class="panel-heading">
+  	<h3 class="panel-title">Please Log In</h3>
+  </div>
+  <div class="panel-body">
+  	<a href="/login"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> You must log in order to save this sandwich.</a>
+  	<p>category: {{category}}</p>
+  </div>
+</div>
+</div>

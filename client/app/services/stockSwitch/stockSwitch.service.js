@@ -5,16 +5,16 @@ angular.module('sandwichChefApp')
 
   // // // Bootstrap slider button // // //
   return {
-    inStock: 'true'
-    ,onText: 'Yes, Show This To Customers'
-    ,offText: 'No, Hide This For Now'
-    ,onColor: 'info'
-    ,offColor: 'danger'
-    ,size: 'normal'
-    ,animate: true
-    ,handleWidth: "auto"
-    ,labelWidth: "auto"
-    ,isActive: true
+    inStock: 'true',
+    onText: 'Yes, Show This To Customers',
+    offText: 'No, Hide This For Now',
+    onColor: 'info',
+    offColor: 'danger',
+    size: 'normal',
+    animate: true,
+    handleWidth: 'auto',
+    labelWidth: 'auto',
+    isActive: true
     // ,radioOff: true
     // inverse: false      
   };

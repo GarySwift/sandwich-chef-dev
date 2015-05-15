@@ -219,9 +219,6 @@ Ingred.find({}).remove(function() {
     "imageId" : "m2vpg81uqyegs75z3nvy",
     "inStock" : true,
   }
-  , function() {
-      console.log('finished populating ingredients');
-    }
   );
 });
 

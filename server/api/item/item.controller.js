@@ -13,41 +13,34 @@ var _ = require('lodash'),
 cloudinary.config({ 
   cloud_name: process.env.cloudinary_cloud_name,
   api_key: process.env.cloudinary_api_key,
-  api_secret: process.env.cloudinary_api_secret,
+  api_secret: process.env.cloudinary_api_secret
 });
 
-var getModel = function (model, category) {
-  var item;
-  console.log('model', model);
-  switch(model) {
-      case "item":
-          item = require('./item.model');
-          return item;
-          break;    
-      case "ingred":
-      // console.log('category',category);
-      //     if(category==='sandwich'){
-      //       item = require('../sandwich/sandwich.model');
-      //       return item;
-      //     } else {
-            item = require('../ingred/ingred.model');
-            return item;
-          // }      
-
-          break;
-      case "product":
-          item = require('../product/product.model');
-          return item;
-          break; 
-      case "sandwich":
-            item = require('../sandwich/sandwich.model');
-            return item;
-          break;                      
-      default:
-          return false;
-          break;         
-  }
-}
+// var getModel = function (model, category) {
+//   var item;
+//   console.log('model', model);
+//   switch(model) {
+//       case "item":
+//           item = require('./item.model');
+//           return item;
+//           break;    
+//       case "ingred":
+//           item = require('../ingred/ingred.model');
+//           return item;    
+//           break;
+//       case "product":
+//           item = require('../product/product.model');
+//           return item;
+//           break; 
+//       case "sandwich":
+//             item = require('../sandwich/sandwich.model');
+//             return item;
+//           break;                      
+//       default:
+//           return false;
+//           break;         
+//   }
+// }
 // Location where we want to copy the uploaded file
 var image_location = 'client/assets/images/';
 
@@ -59,8 +52,8 @@ function createImageFilename(item) {
 // Check if an name exists - ensures no duplicate names will exist
 exports.checkForDuplicateName = function(req, res) {
   console.log('req.params.type',req.params.type);
-  var item = getModel(req.params.type, req.params.category);
-  // var item = require('../'+ decodeURIComponent(req.params.type) +'/'+ decodeURIComponent(req.params.type) +'.model');
+  // var item = getModel(req.params.type, req.params.category);
+  var item = require('../'+ decodeURIComponent(req.params.type) +'/'+ decodeURIComponent(req.params.type) +'.model');
   if(item) {
     item.findOne({"name": decodeURIComponent(req.params.name) }, function (err, item) {
       console.log('reached server', req.params.name);
@@ -76,18 +69,18 @@ exports.checkForDuplicateName = function(req, res) {
 };
 
 // Updates an existing item in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Item.findById(req.params.id, function (err, item) {
-    if (err) { return handleError(res, err); }
-    if(!item) { return res.send(404); }
-    var updated = _.merge(item, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, item);
-    });
-  });
-};
+// exports.update = function(req, res) {
+//   if(req.body._id) { delete req.body._id; }
+//   Item.findById(req.params.id, function (err, item) {
+//     if (err) { return handleError(res, err); }
+//     if(!item) { return res.send(404); }
+//     var updated = _.merge(item, req.body);
+//     updated.save(function (err) {
+//       if (err) { return handleError(res, err); }
+//       return res.json(200, item);
+//     });
+//   });
+// };
 
 // Creates a new item in the DB.
 exports.postImage = function(req, res, next) {
