@@ -10,6 +10,10 @@ var _ = require('lodash'),
     util = require('util'),
     cloudinary = require('cloudinary');
 
+// console.log('process.env.cloudinary_cloud_name', process.env.cloudinary_cloud_name);
+// console.log('process.env.cloudinary_api_key', process.env.cloudinary_api_key);
+
+// console.log('process.env', process.env);
 cloudinary.config({ 
   cloud_name: process.env.cloudinary_cloud_name,
   api_key: process.env.cloudinary_api_key,
@@ -68,6 +72,25 @@ exports.checkForDuplicateName = function(req, res) {
  
 };
 
+exports.getSingleItem = function(req, res) {
+  console.log('req.params.type',req.params.type);
+  console.log('req.params.id',req.params.id);
+  // var item = getModel(req.params.type, req.params.category);
+  var item = require('../'+ decodeURIComponent(req.params.type) +'/'+ decodeURIComponent(req.params.type) +'.model');
+  if(item) {
+    // item.findOne({"id": req.params.id }, function (err, item) {
+    item.findById(req.params.id, function (err, thing) {
+      console.log('reached server', req.params.id);
+      if(err) { return handleError(res, err); }
+      if(!thing) { return res.send(false); }
+      return res.json(thing);
+    });    
+  }
+  else {
+    return handleError(res, "Model not found");
+  }
+ 
+};
 // Updates an existing item in the DB.
 // exports.update = function(req, res) {
 //   if(req.body._id) { delete req.body._id; }
@@ -94,7 +117,7 @@ exports.postImage = function(req, res, next) {
     formBody=fields;
     formFiles=files;
   });
-  console.log('formBody',formBody);
+  // console.log('formBody',formBody);
   form
     .on('end', function(fields, files) {
       /* Temporary location of our uploaded file */

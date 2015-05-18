@@ -21,7 +21,6 @@ var SandwichSchema = new Schema({
 	filling: [{ type: String, trim: true }],
 	salad: [{ type: String, trim: true }],
 	extra: [{ type: String, trim: true }],
-	testingThisArray: [{ type: String, trim: true }],
 	inStock			: { type: Boolean, default: false },
 	active: 		Boolean
 });

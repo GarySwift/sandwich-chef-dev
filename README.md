@@ -45,4 +45,14 @@ All of these can be updated with bower update as new versions are released.
 ###Demo
 <https://sandwich-chef.herokuapp.com/>
 
+###Build It Yourself
+
+Assuming you have Node, grunt, and bower installed:
+
+```npm install
+
+bower install
+
+grunt serve```
+
 

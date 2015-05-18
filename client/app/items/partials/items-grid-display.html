@@ -4,7 +4,7 @@
       <!-- | filter:{ category : category, subCategory : subCategory, inStock: true } | orderBy : 'name' -->
 	    <li class="artist cf" ng-animate="animate" >
 	      <!-- <a href="artists/{{artists.indexOf(item)}}"> -->
-	        <img ng-src="{{ getImageUrl(item.imageUrl, 150) }}" width="100" class=" artist-image" alt="Photo of {{item.name}}"><!-- img-circle -->
+	        <img ng-src="{{ getImageUrl(item.imageUrl, 150) }}" width="100" class="artist-image" alt="Photo of {{item.name}}">
 
 <!-- <cl-image public-id="{{item.imageId}}" class="thumbnail inline" angle="20" format="jpg">
   <cl-transformation height="150" width="150" crop="fill" gravity="north" effect="sepia" radius="20"/>
@@ -13,19 +13,25 @@
 	        <div class="info">
 				<h2>{{item.name}}</h2>
 				<h3>{{item.price}}</h3>
-				 <!-- <p>hejj{{item}}</p> -->
-								<!--getImageUrl(item)   <h5>{{item.imageUrl}}</h5> -->
-	        </div>
-			<div class="user-btn-group" ng-show="isAdmin()"><!-- ng-show="!updating  isAdmin()"  -->
-				<button class="close" ng-click="deleteItem(item)"><span class="glyphicon glyphicon-trash action-glyphicon" aria-hidden="true"></span>Delete</button>
-				<button class="close" ng-click="prepareUpdate(item._id)"><span class="glyphicon glyphicon-edit action-glyphicon" aria-hidden="true"></span>Edit</button>
-				<!-- <ng-md-icon icon="add_shopping_cart" style="fill: wheat" size="40" options="rotation"></ng-md-icon>  -->
-			</div>
-			<div class="user-btn-group" ng-show="!isAdmin()"><!-- ng-show="!updating  isAdmin()"  -->
-		<!-- 		<button class="close" ng-click="deleteItemNew(item)"><span class="glyphicon glyphicon-trash action-glyphicon" aria-hidden="true"></span>Delete</button> -->
-<a href="#" ng-click="addToBasket(item)"><ng-md-icon icon="add_shopping_cart" style="fill: wheat" size="40"></ng-md-icon></a>
-			</div>
+				<p>{{item.notes | limitTo: 40}} <span ng-if="item.notes.length>40"> ...</span></p>
+	<!-- 			<p>category: {{category}}</p>
+				<p>subCategory: {{subCategory}}</p> -->
 
+
+	        </div>
+ <div class="clearfix"></div>
+	        				<div class="user-btn-group" ng-show="isAdmin()">
+					<button class="action" ng-click="deleteItem(item)"><span class="glyphicon glyphicon-trash " aria-hidden="true"></span><span class="action-text">Delete</span></button>
+					<button class="action"><a href="./item/{{type}}/{{item._id}}" class="grid-link"><span class="glyphicon glyphicon-eye-open " aria-hidden="true"></span><span class="action-text">View</span></a></button>
+					<button class="action" ng-click="prepareUpdate(item._id)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="action-text">Edit</span></button>
+				</div>
+	       
+		
+			<!-- <div class="user-btn-group" ng-show="!isAdmin()"> --><!-- ng-show="!updating  isAdmin()"  -->
+		<!-- 		<button class="close" ng-click="deleteItemNew(item)"><span class="glyphicon glyphicon-trash action-glyphicon" aria-hidden="true"></span>Delete</button> -->
+<!-- <a href="#" ng-click="addToBasket(item)"><ng-md-icon icon="add_shopping_cart" style="fill: wheat" size="40"></ng-md-icon></a> -->
+			<!-- </div> -->
+<!-- <a href="./item/{{type}}/{{item._id}}" class="grid-link"><span class="glyphicon glyphicon-eye-open" aria-hidden="true">View</span></a> -->
 	      <!-- </a> -->
 	    </li>
 	  </ul> 

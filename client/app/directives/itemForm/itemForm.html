@@ -138,6 +138,7 @@
 <section class="container button-container">
 	<div class="form-width" >
 		<div class="form-group text-center">
+		<button ng-click="redirect()">Test</button>
 			<button type="button" class="btn btn-success btn-s" ng-show="!updating" ng-click="uploader.uploadAll()" ng-disabled="!itemForm.$valid || !uploader.getNotUploadedItems().length || uploadInProgress">
 				<span ng-show="uploadInProgress" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
 	            <span ng-hide="uploadInProgress" class="glyphicon glyphicon-upload"></span> Submit New Item

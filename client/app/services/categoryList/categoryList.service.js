@@ -3,13 +3,21 @@
 angular.module('sandwichChefApp')
   .service('categoryList', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
-	this.category = [{"name" :"bread", "title" : "Bread"},
+	this.category = 
+		[{"name" :"bread", "title" : "Bread"},
 	    {"name" :"cold-cut", "title" : "Cold Cuts"},
 	    {"name" :"hot-meat", "title" : "Hot Meats"},                       
 	    {"name" :"seafood", "title" : "Seafood"},
 	    {"name" :"salad", "title" : "Salad"},
 	    {"name" :"extra", "title" : "Extras"}
 	    ];
+
+	this.snacks = 
+		[{"name" :"bars", "title" : "Bars"},
+	    {"name" :"crisps", "title" : "Crisps"},
+	    {"name" :"fruit", "title" : "Fruit"},                       
+	    {"name" :"nuts", "title" : "Nuts & Mixes"}
+	    ];	    
 	this.getList = function () {
 	  return this.category;
 	}  
@@ -18,5 +26,13 @@ angular.module('sandwichChefApp')
 	}  
 	this.getListWithoutFilling = function () {
 	  return this.category.slice(0,1).concat([{"name" :"filling", "title" : "Filling"}]).concat(this.category.slice(4,this.category.length));
-	}      
+	}
+	this.getSnacks = function () {
+		return this.snacks;
+	}
+	// return {
+	// 	getList: function() {
+	// 		return 
+	// 	}
+	// }      
   });

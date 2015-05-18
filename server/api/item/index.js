@@ -13,6 +13,8 @@ var router = express.Router();
 // router.patch('/:id', controller.update);
 router.delete('/:id/:type', controller.destroy);
 router.get('/name/:name/:type/:category', controller.checkForDuplicateName);
+//api/items/single/
+router.get('/single/:type/:id', controller.getSingleItem);
 router.post('/upload/image', controller.postImage);
 router.post('/edit/image', controller.updateImage);
 // router.post('/upload/image__', controller.postImage__);

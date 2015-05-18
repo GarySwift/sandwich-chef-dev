@@ -54,10 +54,10 @@ angular.module('sandwichChefApp')
       console.log('$scope.sandwichList.length', $scope.sandwichList.length);
       if(current+1===$scope.sandwichList.length && sandwich.ifBread() && ( sandwich.ifSalad() || sandwich.ifExtra() )) {
         $scope.isCollapsed = !$scope.isCollapsed;
-      $scope.chefCollapsed=!$scope.chefCollapsed;
-      $scope.sandwich.setReadyToSave($scope.isCollapsed);
-      console.log('$scope.sandwich.setReadyToSave(true);');
-      return;
+        $scope.chefCollapsed=!$scope.chefCollapsed;
+        $scope.sandwich.setReadyToSave($scope.isCollapsed);
+        console.log('$scope.sandwich.setReadyToSave(true);');
+        return;
       }
 
       //   $scope.isCollapsed=true;
@@ -82,4 +82,9 @@ angular.module('sandwichChefApp')
         return false;
       $scope.sandwichList[i].active = true;
     };
+
+  // var deselect = function() {
+  //  sandwich = '';
+  //  $scope.isCollapsed = !$scope.isCollapsed;
+  // }
 });

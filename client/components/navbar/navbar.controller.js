@@ -25,7 +25,13 @@ angular.module('sandwichChefApp')
     }, {
       'title': 'Bars',
       'link': '/snacks/bars'
-    }   
+    }, {
+      'title': 'Fruit',
+      'link': '/snacks/fruit'
+    }, {
+      'title': 'Nuts & Mixes',
+      'link': '/snacks/nuts'
+    }  
     ];
     $scope.adminMenu = [
     { 

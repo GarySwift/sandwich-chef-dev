@@ -1,0 +1,12 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-controller="AllItemsCtrl" class="container">
+	<div ng-repeat="cat in allIngred">
+	{{ setCategory(cat.name) }}
+	<h2><small>{{cat.title}} Selection</small></h2>
+	<div ng-include="'app/items/partials/items-grid-display.html'"></div>
+	</div>
+
+</div>
+<!-- <div ng-include="'app/items/partials/items-grid-display.html'"></div> -->
+<item-form/>

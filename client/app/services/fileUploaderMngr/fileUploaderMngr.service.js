@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sandwichChefApp')
-  .service('fileUploaderMngr', function () {
+  .service('fileUploaderMngr', function (errorReport, msgReport) {
 
   this.uploadHandler = function (uploader, $scope){
     var uploaderDebugMode = true;
@@ -16,6 +16,7 @@ angular.module('sandwichChefApp')
      */
     uploader.onBeforeUploadItem = function(item) {
       console.log('$scope.item.notes', $scope.item.notes);
+      console.log('item', item);
       // console.log('$scope.sandwich.getModelForServer()',$scope.sandwich.getModelForServer());
       // If the user is submitting an edit that changes the image
       // POST to: item.controller -> exports.postImage()
@@ -131,16 +132,35 @@ angular.module('sandwichChefApp')
     	console.log('response.category', response.category);
     	console.log('response.imageUrl', response.imageUrl);
     	console.log('response.imageId', response.imageId);
-    	if(response.imageUrl===undefined){
-    		$scope.addError('Oh snap! We had some trouble saving the image. You can fix this issue by selecting edit on the itme and adding another image.');
+      if(response._id===undefined){
+    //     { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+    // { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+
+        var msg = 'onCompleteItem - Oh snap! We had some trouble saving this item. We recommend you try to submit it again.';
+        $scope.addError(msg);
+        errorReport.setError(msg); 
+        // return false
+      }      
+    	else if(response.imageUrl===undefined){
+        var msg = 'onCompleteItem - Oh snap! We had some trouble saving the image. You can fix this issue by selecting edit on the itme and adding another image.';
+    		$scope.addError(msg);
+        errorReport.setError(msg); 
+        // $rootScope.error = msg;
+        // errorReport.setError(msg); 
+        $scope.addError({ 'type': 'danger', 'msg': msg});
     	}
-	    if(uploaderDebugMode)
+
+	    if(uploaderDebugMode){
 	      console.info('onCompleteItem', fileItem, response, status, headers);
+      }
+      $scope.item = response;
+      $scope.deselect();
+      // msgReport.setMsg('onCompleteItem - Well done! You successfully saved this item.');
     };
     uploader.onCompleteAll = function() {
       if(uploaderDebugMode)
         console.info('onCompleteAll');
-      $scope.deselect();
+     
       
     };
     uploader.onComplete = function(response, status, headers) {

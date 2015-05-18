@@ -13,6 +13,48 @@
     to { transform: scale(1) rotate(360deg);}
 }
 
+.nav > li > a.grid-link {
+    // background-color: #66FFCC;
+  margin-right: 0;
+  line-height: 1.42857;
+  border: none;
+  border-radius: none;
+position: relative;
+  display: inline;
+  padding: 0;
+
+}
+button.action{
+      padding: 0 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  // float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+   font-family: inherit; 
+   transition: opacity .25s ease-in-out; 
+   a {
+    color: #000;
+   }
+   .action-text {
+    // display: none;
+    opacity: 0;
+   }
+}
+button.action:hover {
+  opacity: 0.6;
+   .action-text {
+    opacity: 0.6;
+   }
+ 
+}
 
 .inline-tooltip {
     font-size: 20px;

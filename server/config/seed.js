@@ -222,6 +222,4 @@ Ingred.find({}).remove(function() {
   );
 });
 
-// Sandwich.find({}).remove( function () {
-  // Sandwich.create({
-// });
+// Sandwich.find({}).remove( function () { });

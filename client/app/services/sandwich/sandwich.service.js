@@ -187,6 +187,18 @@ var readyToSave = false;
 		    if (extra.length > 0) 
 		    	return true;
 		    return false;
+		},
+		deselect: function() {
+			name = '';
+			bread = [];
+			salad = [];
+			filling = [];
+			coldCut = [];
+			hotMeat = [];
+			seaFood = [];
+			allIngred = [];
+			extra = [];
+			readyToSave = false;			
 		}									
     };// End return
 

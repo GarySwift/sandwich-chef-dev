@@ -7,7 +7,7 @@
 // 'use strict';
 
 angular.module('sandwichChefApp')
-  .service('itemMngr', function ($http, socket) {
+  .service('itemMngr', function ($http, socket, $location) {
     this.serverLocation;
 
   this.getItems = function ($scope, item) {
@@ -94,13 +94,18 @@ angular.module('sandwichChefApp')
      // $http.delete(this.serverLocation+'/'+ item._id);
   }
   this.deselect = function ($scope) {
+    var category = $scope.item.category;
+  var type = $scope.type;
+    var id = $scope.item._id;
     $scope.updating = false;
     $scope.item = "";
     $scope.itemForm.$setPristine(); 
     $scope.resetImage();          
     $scope.updatingActive=false;
     $scope.uploadInProgress=false;
-    if($scope.formDebugMode)
-      console.log('deselect');    
+    $location.path('/item/'+type+'/'+id);
+    if($scope.formDebugMode){
+      console.log('deselect');  
+    }
   }
 });

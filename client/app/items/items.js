@@ -30,7 +30,29 @@ angular.module('sandwichChefApp')
 	        }
 	    }
       })
-      .when('/snacks/bars', {
+      .when('/snacks/fruit', {
+        templateUrl: 'app/items/items.html',
+        controller: 'ItemsCtrl'
+        ,resolve: {
+          initialData: function(){
+              return {'type':'product',
+                  'category':'snacks',
+                  'subCategory':'fruit'};
+          }
+      }
+      })
+      .when('/snacks/nuts', {
+        templateUrl: 'app/items/items.html',
+        controller: 'ItemsCtrl'
+        ,resolve: {
+          initialData: function(){
+              return {'type':'product',
+                  'category':'snacks',
+                  'subCategory':'nuts'};
+          }
+      }
+      })      
+     .when('/snacks/bars', {
         templateUrl: 'app/items/items.html',
         controller: 'ItemsCtrl'
         ,resolve: {
@@ -156,13 +178,13 @@ angular.module('sandwichChefApp')
         }         
       })   
       .when('/ingred/all', {
-        templateUrl: 'app/items/items.html',
+        templateUrl: 'app/allItems/allItems.html',
         controller: 'ItemsCtrl',
         authenticate: true,
         resolve: {
           initialData: function(){
               return {'type':'ingred',
-                      'category':'ingredients',
+                      'category':'',
                       'price':false,
                       'notes':false};
           }
@@ -180,6 +202,22 @@ angular.module('sandwichChefApp')
           }
         }         
       })
+      .when('/sandwich/:id', {
+        templateUrl: 'app/items/item.html',
+        controller: 'DetailsController',
+        // authenticate: true,
+        resolve: {
+          initialData: function(){
+              return {'type':'sandwich',
+                      'category':'sandwich',
+                      'serverLocation':'/api/sandwiches'};
+          }
+        }         
+      })
+      .when('/item/:type/:id', {
+        templateUrl: 'app/item/item.html',
+        controller: 'ItemCtrl'
+      })            
       .when('/chef', {
         templateUrl: 'app/sandwiches/sandwiches.html',
         controller: 'ItemsCtrl',
@@ -189,7 +227,8 @@ angular.module('sandwichChefApp')
               return {'type':'sandwich',
                       'category':'sandwich',
                       'serverLocation':'/api/sandwiches',
-                      'price':3.95};
+                      'price':3.95,
+                      'chef':true};
           }
         }         
       })      
